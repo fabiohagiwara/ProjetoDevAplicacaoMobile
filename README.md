@@ -5,6 +5,7 @@ Aplicação que recebe memes de uma API e exibe para o usuário, a API busca os 
 
 To-do:
       Opção de salvar os memes no celular
+      
       Usuário conseguir adicionar subreddits
 
 API utilizada: https://github.com/D3vd/Meme_Api
