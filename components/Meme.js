@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {Text, View, Image, StyleSheet, Switch} from 'react-native';
+import {Text, View, Image, StyleSheet, Switch, Button} from 'react-native';
+import firebase from 'firebase';
 import { useHistory } from 'react-router';
 
 export const Meme = () => {
 
     React.useEffect(() => {
-        console.log("aa");
         loadMeme();
     },[]);
 
@@ -16,7 +16,7 @@ export const Meme = () => {
     async function loadMeme(){
         fetch('https://meme-api.herokuapp.com/gimme/1').then((response) =>
         response.json()).then((json) => {
-                console.log(json);
+                //console.log(json);
                 if(json.memes[0].nsfw == true && nsfwState == false){
                     setMemeUrl('https://www.techtricknews.com/wp-content/uploads/2020/03/How-to-Turn-Off-NSFW-Filter-on-Reddit-iPhone-App.jpg');
                     setMemeTitle('nsfw blocked');
@@ -39,10 +39,13 @@ export const Meme = () => {
     let history = useHistory();
     return(
         <View style={{flex:1}}>
-            <View style={styles.titleView}>
+            <View style={styles.buttonView}>
                 <Switch thumbColor={'white'} trackColor={{false: "red",true: "green"}} onChange={changeNSWF} value={nsfwState}></Switch>
+                <Button title="sair" onPress={() => firebase.auth().signOut()} color='black' style={styles.button}></Button>
+            </View>
+            <View style={styles.titleView}>
                 <Text style={styles.title}>
-                    {memeTitle}
+                        {memeTitle}
                 </Text>
             </View>
             <View style={styles.container} onTouchStart={() => {loadMeme()}}>
@@ -58,6 +61,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         alignItems: 'center',
     },
+    button: {
+        textAlign: 'right'
+    },
     meme: {
         flex: 1,
         width: '100%',
@@ -66,7 +72,13 @@ const styles = StyleSheet.create({
     },
     titleView: {
         backgroundColor: 'black',
-        alignItems: 'center',
+        alignItems: 'center'
+    },
+    buttonView: {
+        backgroundColor: 'black',
+        alignContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     title: {
         color: 'white',

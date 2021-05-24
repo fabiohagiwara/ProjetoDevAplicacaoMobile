@@ -8,7 +8,7 @@ export const Home = () => {
     let history = useHistory();
 
     return(
-      <View style={styles.container} onTouchStart={() => history.push('/meme')}>
+      <View style={styles.container} onTouchStart={() => history.push('/loading')}>
           <Image source={{uri:'https://i.imgur.com/XToiemw.png'}} style={styles.logo}/>
           <Text style={styles.texto}>I'll give you memes</Text>
           <Text style={styles.continue}>Tap to continue</Text>
