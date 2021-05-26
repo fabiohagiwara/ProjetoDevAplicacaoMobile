@@ -1,22 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Text, View, Image, StyleSheet, Switch, Button} from 'react-native';
+import * as Permissions from 'expo-permissions';
 import firebase from 'firebase';
 import { useHistory } from 'react-router';
+import * as Notifications from 'expo-notifications';
 
-export const Meme = () => {
+export function Meme() {
 
     React.useEffect(() => {
         loadMeme();
+        getUserPushToken();
+        registerForPushNotificationsAsync();
     },[]);
 
     const [memeUrl, setMemeUrl] = React.useState(null);
-    const [memeTitle, setMemeTitle] = React.useState(null)
-    const [nsfwState, setnsfwState] = React.useState(false)
+    const [memeTitle, setMemeTitle] = React.useState(null);
+    const [nsfwState, setnsfwState] = React.useState(false);
+    const [countMemes, setCountMemes] = React.useState(0);
+    const [pushToken, setPushToken] = React.useState(null);
 
     async function loadMeme(){
         fetch('https://meme-api.herokuapp.com/gimme/1').then((response) =>
         response.json()).then((json) => {
-                //console.log(json);
                 if(json.memes[0].nsfw == true && nsfwState == false){
                     setMemeUrl('https://www.techtricknews.com/wp-content/uploads/2020/03/How-to-Turn-Off-NSFW-Filter-on-Reddit-iPhone-App.jpg');
                     setMemeTitle('nsfw blocked');
@@ -29,12 +34,62 @@ export const Meme = () => {
             console.error(error);
         });
     }
+
+    async function getUserPushToken(){
+        let user = firebase.auth().currentUser;
+            let userRef = firebase.database().ref('users/' + user.uid + '/push-token');
+            userRef.on('value',(snapshot) => {
+                const data = snapshot.val();
+                setPushToken(data);
+            })
+    }
+
+    const countMeme = () => {
+        setCountMemes(countMemes + 1);
+        console.log(countMemes);
+        if(countMemes == 10){
+            let response = fetch('https://exp.host/--/api/v2/push/send',{
+                method:'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    to: pushToken,
+                    sound: 'default',
+                    title: 'Gimmememe',
+                    body: 'Percebi que você está curtindo os memes, obrigado por utilizar o aplicativo!!'
+                })
+            })
+        } 
+    }
     
     const changeNSWF = () => {
         setnsfwState(previousState => !previousState);
+        if(nsfwState == true){
+            alert('Filtro NSFW desativado');
+        }
+        else{
+            alert('Filtro NSFW ativado');
+        }
         console.log(nsfwState);
     }
     
+    async function registerForPushNotificationsAsync(){
+          const {status} = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+          console.log(status);
+          if(status != "granted"){
+              const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+          }
+          if(status != 'granted'){
+              alert('Fail to get push token');
+              return;
+          }
+          const token =  (await Notifications.getExpoPushTokenAsync()).data;
+
+          let currentUser = firebase.auth().currentUser;
+          firebase.database().ref('users/' + currentUser.uid + '/push-token').set(token);
+        };
 
     let history = useHistory();
     return(
@@ -48,7 +103,7 @@ export const Meme = () => {
                         {memeTitle}
                 </Text>
             </View>
-            <View style={styles.container} onTouchStart={() => {loadMeme()}}>
+            <View style={styles.container} onTouchStart={() => {loadMeme();countMeme()}}>
                 <Image source={{uri: memeUrl}} style={styles.meme}></Image>
             </View>
         </View>
