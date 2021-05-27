@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "537888317066",
+    "firebase_url": "https://gimmememe-c4fba-default-rtdb.firebaseio.com",
+    "project_id": "gimmememe-c4fba",
+    "storage_bucket": "gimmememe-c4fba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537888317066:android:6658c189c4d50473bd5773",
+        "android_client_info": {
+          "package_name": "com.Gimmememe.Gimmememe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537888317066-38b8htsqergfcj0pplto0nq1n81rsk6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJqXcdnB6AW6by3LCpSM6m2t8GQNZdwJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537888317066-38b8htsqergfcj0pplto0nq1n81rsk6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

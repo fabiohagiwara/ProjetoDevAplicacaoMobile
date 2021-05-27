@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/iconOn.png",
-        "backgroundColor": "#FFFFFF",
+        "backgroundColor": "#FFFFFF"
       },
       "package" : "com.Gimmememe.Gimmememe",
       "versionCode": 1

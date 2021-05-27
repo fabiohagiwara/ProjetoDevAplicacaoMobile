@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Image, ActivityIndicator, Text, StatusBar, TouchableOpacity, Button} from 'react-native';
+import {StyleSheet, View, Image, Text, StatusBar} from 'react-native';
 import { useHistory } from 'react-router';
 
 
