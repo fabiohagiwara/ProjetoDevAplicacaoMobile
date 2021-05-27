@@ -23,9 +23,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/iconOn.png",
         "backgroundColor": "#FFFFFF",
-        "package" : "com.Gimmememe.Gimmememe",
-        "versionCode": 1
-      }
+      },
+      "package" : "com.Gimmememe.Gimmememe",
+      "versionCode": 1
     }
   }
 }
