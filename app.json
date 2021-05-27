@@ -24,8 +24,10 @@
         "foregroundImage": "./assets/iconOn.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package" : "com.Gimmememe.Gimmememe",
+      "package": "com.Gimmememe.Gimmememe",
       "versionCode": 1
-    }
+    },
+    "description": "Aplicação mobile para o curso de Desenvolvimento Mobile.",
+    "githubUrl": "https://github.com/fabiohagiwara/ProjetoDevAplicacaoMobile"
   }
 }
