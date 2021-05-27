@@ -46,7 +46,6 @@ export function Meme() {
 
     const countMeme = () => {
         setCountMemes(countMemes + 1);
-        console.log(countMemes);
         if(countMemes == 10){
             let response = fetch('https://exp.host/--/api/v2/push/send',{
                 method:'POST',
@@ -72,7 +71,6 @@ export function Meme() {
         else{
             alert('Filtro NSFW ativado');
         }
-        console.log(nsfwState);
     }
     
     async function registerForPushNotificationsAsync(){
