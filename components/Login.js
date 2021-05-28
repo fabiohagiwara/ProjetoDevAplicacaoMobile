@@ -51,6 +51,11 @@ export const Login = () => {
       }
 
     const saveUserData = (result) => {
+        var date = new Date();
+        var day = String(date.getDate()).padStart(2,'0');
+        var month = String(date.getDate() + 1).padStart(2,'0');
+        var year = date.getFullYear();
+        var today = day + '/' + month + '/' + year;
         if (result.additionalUserInfo.isNewUser) {
             firebase
               .database()
@@ -60,14 +65,14 @@ export const Login = () => {
                 profile_picture: result.additionalUserInfo.profile.picture,
                 first_name: result.additionalUserInfo.profile.given_name,
                 last_name: result.additionalUserInfo.profile.family_name,
-                created_at: Date.now()
+                created_at: today
               });
           } else {
             firebase
               .database()
               .ref('/users/' + result.user.uid)
               .update({
-                last_logged_in: Date.now()
+                last_logged_in: today
               });
           }
     }
@@ -75,6 +80,7 @@ export const Login = () => {
     async function signInWithGoogleAsync() {
         try {
           const result = await Google.logInAsync({
+            behavior: 'web',
             androidClientId: '537888317066-n2ct4u8rp394ukvlh9lq0g0j6pv8l84p.apps.googleusercontent.com',
             //iosClientId: YOUR_CLIENT_ID_HERE,
             scopes: ['profile', 'email'],
